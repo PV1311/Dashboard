@@ -1,6 +1,6 @@
 import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { getCityBins } from '../services/mockData';
 import { SmartBin } from '../types/bin';
@@ -28,6 +28,7 @@ const collectionFrequencyData = [
 
 function BinsManagement() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [stateBins, setStateBins] = useState<SmartBin[]>([]);
@@ -38,56 +39,28 @@ function BinsManagement() {
     setSelectedCity(city);
     if (city) {
       const bins = getCityBins(city);
-      // Add collection dates based on fill level
-      const binsWithDates = bins.map(bin => {
-        const today = new Date();
-        let lastCollected: Date;
-        let nextCollection: Date;
-
-        if (bin.fillLevel > 90) {
-          // Critical - Last collected 5 days ago, next collection tomorrow
-          lastCollected = new Date(today.getTime() - 5 * 24 * 60 * 60 * 1000);
-          nextCollection = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-        } else if (bin.fillLevel > 60) {
-          // Warning - Last collected 3 days ago, next collection in 2 days
-          lastCollected = new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000);
-          nextCollection = new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000);
-        } else {
-          // Good - Last collected yesterday, next collection in 4 days
-          lastCollected = new Date(today.getTime() - 24 * 60 * 60 * 1000);
-          nextCollection = new Date(today.getTime() + 4 * 24 * 60 * 60 * 1000);
-        }
-
-        return {
-          ...bin,
-          lastCollected: lastCollected.toISOString(),
-          nextCollection: nextCollection.toISOString()
-        };
-      });
-      setStateBins(binsWithDates);
+      setStateBins(bins);
     } else {
       setStateBins([]);
     }
   };
 
-  const getBinStatus = (fillLevel: number) => {
-    if (fillLevel > 90) {
-      return { text: 'Critical', color: 'text-red-600 font-semibold' };
-    } else if (fillLevel > 60) {
-      return { text: 'Warning', color: 'text-yellow-600 font-semibold' };
-    } else {
-      return { text: 'Good', color: 'text-green-600 font-semibold' };
-    }
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsSidebarOpen(false);
   };
 
   return (
     <div className="min-h-screen relative">
-      {/* Background and Navbar */}
-      <div className="fixed inset-0 z-[-1]" style={{
-        backgroundImage: 'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}>
+      {/* Background Image with Overlay */}
+      <div 
+        className="fixed inset-0 z-[-1]"
+        style={{
+          backgroundImage: 'url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
         <div className="absolute inset-0 bg-white/75" />
       </div>
 
@@ -119,32 +92,29 @@ function BinsManagement() {
         </div>
         <div className="p-4 space-y-2">
           <button
-            onClick={() => {
-              navigate('/');
-              setIsSidebarOpen(false);
-            }}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <LayoutDashboard className="w-5 h-5 text-green-600" />
             <span>Dashboard</span>
           </button>
           <button
-            onClick={() => window.open('/bins', '_blank')}
-            className="flex items-center gap-2 w-full p-2 rounded-lg bg-gray-100"
+            onClick={() => handleNavigation('/bins')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/bins' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <BarChartIcon className="w-5 h-5 text-green-600" />
             <span>Bins Management</span>
           </button>
           <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/routes')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/routes' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <Route className="w-5 h-5 text-green-600" />
             <span>Route Optimization</span>
           </button>
           <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/analytics')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/analytics' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <TrendingUp className="w-5 h-5 text-green-600" />
             <span>Analytics</span>
@@ -178,15 +148,15 @@ function BinsManagement() {
                     <Legend />
                     <Bar dataKey="bins" name="Number of Bins">
                       {fillLevelData.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
+                        <Cell
+                          key={`cell-${index}`}
                           fill={[
                             '#22c55e', // green
                             '#84cc16', // lime
                             '#eab308', // yellow
                             '#f97316', // orange
                             '#ef4444', // red
-                          ][index]} 
+                          ][index]}
                         />
                       ))}
                     </Bar>
@@ -206,9 +176,9 @@ function BinsManagement() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line 
-                      type="monotone" 
-                      dataKey="collections" 
+                    <Line
+                      type="monotone"
+                      dataKey="collections"
                       name="Collections"
                       stroke="#3b82f6"
                       strokeWidth={2}
@@ -224,7 +194,7 @@ function BinsManagement() {
           {/* Bin Status Table */}
           <div className="bg-white rounded-lg shadow-lg p-4 lg:p-6">
             <h2 className="text-xl lg:text-2xl font-bold text-center mb-6">Bin Status</h2>
-            
+
             {/* Location Selector */}
             <div className="mb-6">
               <LocationSelector onLocationChange={handleLocationChange} />
@@ -234,12 +204,24 @@ function BinsManagement() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr className="bg-green-600">
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Bin ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Location</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Fill Level</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Last Collection</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Next Collection</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Bin ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Location
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Fill Level
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Last Collection
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                      Next Collection
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -247,15 +229,21 @@ function BinsManagement() {
                     const status = getBinStatus(bin.fillLevel);
                     return (
                       <tr key={bin.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{bin.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{bin.location.address}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{bin.fillLevel}%</td>
-                        <td className={`px-6 py-4 whitespace-nowrap text-sm ${status.color}`}>{status.text}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(bin.lastCollected).toLocaleDateString()}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          {bin.id}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(bin.nextCollection).toLocaleDateString()}
+                          {bin.location.address}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{bin.fillLevel}%</td>
+                        <td className={`px-6 py-4 whitespace-nowrap text-sm ${status.color}`}>
+                          {status.text}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {new Date(bin.lastCollected || '').toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {new Date(bin.nextCollection || '').toLocaleDateString()}
                         </td>
                       </tr>
                     );
@@ -269,5 +257,16 @@ function BinsManagement() {
     </div>
   );
 }
+
+// Helper function for bin status
+const getBinStatus = (fillLevel: number) => {
+  if (fillLevel > 90) {
+    return { text: 'Critical', color: 'text-red-600 font-semibold' };
+  } else if (fillLevel > 60) {
+    return { text: 'Warning', color: 'text-yellow-600 font-semibold' };
+  } else {
+    return { text: 'Good', color: 'text-green-600 font-semibold' };
+  }
+};
 
 export default BinsManagement;

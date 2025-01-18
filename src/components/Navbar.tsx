@@ -1,15 +1,12 @@
 import React from 'react';
 import { Recycle, Menu } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   onMenuClick: () => void;
+  pageTitle?: string;
 }
 
-export default function Navbar({ onMenuClick }: NavbarProps) {
-  const location = useLocation();
-  const isManagementPage = location.pathname === '/bins';
-
+export default function Navbar({ onMenuClick, pageTitle = 'Municipal Smart Bin Dashboard' }: NavbarProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-green-600 shadow-lg z-50 h-16">
       <div className="flex items-center justify-between h-full px-4">
@@ -26,7 +23,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
               <Recycle className="w-6 h-6 text-green-500" />
             </div>
             <span className="text-xl font-bold text-white">
-              {isManagementPage ? 'Bins Management' : 'Municipal Smart Bin Dashboard'}
+              {pageTitle}
             </span>
           </div>
         </div>

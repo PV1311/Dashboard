@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X, Building2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -20,6 +20,7 @@ interface RouteCard {
 
 export default function RouteOptimization() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedDate, setSelectedDate] = useState('');
   const [vehicleType, setVehicleType] = useState('');
   const [priority, setPriority] = useState('');
@@ -66,6 +67,11 @@ export default function RouteOptimization() {
         ]);
       }
     }
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsSidebarOpen(false);
   };
 
   // Create custom bin icon
@@ -206,35 +212,29 @@ export default function RouteOptimization() {
         </div>
         <div className="p-4 space-y-2">
           <button
-            onClick={() => {
-              navigate('/');
-              setIsSidebarOpen(false);
-            }}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <LayoutDashboard className="w-5 h-5 text-green-600" />
             <span>Dashboard</span>
           </button>
           <button
-            onClick={() => window.open('/bins', '_blank')}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/bins')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/bins' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <BarChartIcon className="w-5 h-5 text-green-600" />
             <span>Bins Management</span>
           </button>
           <button
-            onClick={() => {
-              navigate('/routes');
-              setIsSidebarOpen(false);
-            }}
-            className="flex items-center gap-2 w-full p-2 rounded-lg bg-gray-100"
+            onClick={() => handleNavigation('/routes')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/routes' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <Route className="w-5 h-5 text-green-600" />
             <span>Route Optimization</span>
           </button>
           <button
-            onClick={() => setIsSidebarOpen(false)}
-            className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
+            onClick={() => handleNavigation('/analytics')}
+            className={`flex items-center gap-2 w-full p-2 rounded-lg ${location.pathname === '/analytics' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
           >
             <TrendingUp className="w-5 h-5 text-green-600" />
             <span>Analytics</span>
@@ -394,14 +394,17 @@ export default function RouteOptimization() {
                   ];
                   
                   return (
-                    <Polyline
-                      key={route.id}
-                      positions={positions as [number, number][]}
-                      color={index === 0 ? '#ef4444' : index === 1 ? '#3b82f6' : '#22c55e'}
-                      weight={3}
-                      opacity={0.8}
-                    />
-                  );
+  <Polyline
+    key={route.id}
+    positions={positions as [number, number][]}
+    color={
+      index === 0 ? '#ef4444' : index === 1 ? '#3b82f6' : '#22c55e'
+    }
+    weight={3}
+    opacity={0.8}
+  />
+);
+
                 })}
               </MapContainer>
             </div>

@@ -1,4 +1,5 @@
 export interface SmartBin {
+  [x: string]: string | number | Date;
   id: string;
   location: {
     lat: number;
