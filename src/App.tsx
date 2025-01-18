@@ -1,6 +1,6 @@
 import { BarChart, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import BinDetails from './components/BinDetails';
 import LocationSelector from './components/LocationSelector';
 import BinMap from './components/Map';
@@ -90,7 +90,7 @@ function App() {
             <span>Dashboard</span>
           </button>
           <button
-            onClick={() => window.open('https://demosmartboard.netlify.app/bins', '_blank')}
+            onClick={() => navigate('https://demosmartboard.netlify.app/bins' )}
             className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
           >
             <BarChart className="w-5 h-5 text-green-600" />
