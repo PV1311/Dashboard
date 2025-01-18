@@ -1,21 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
+  BarChart,
   Box,
   LayoutDashboard,
-  TrendingUp,
   Route,
-  BarChart,
-  Menu,
-  X,
+  TrendingUp,
+  X
 } from "lucide-react";
-import BinMap from "./components/Map";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BinDetails from "./components/BinDetails";
 import LocationSelector from "./components/LocationSelector";
+import BinMap from "./components/Map";
+import Navbar from "./components/Navbar";
 import WasteReport from "./components/WasteReport";
 import { getCityBins } from "./services/mockData";
 import { SmartBin } from "./types/bin";
-import Navbar from "./components/Navbar";
 
 function App() {
   const [selectedState, setSelectedState] = useState("");
@@ -109,7 +108,7 @@ function App() {
           </button>
           <button
             onClick={() => {
-              navigate("/bins");
+              navigate("/routes");
               setIsSidebarOpen(false);
             }}
             className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
