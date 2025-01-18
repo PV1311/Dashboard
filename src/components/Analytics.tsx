@@ -193,28 +193,28 @@ export default function Analytics() {
           {/* Statistics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Total Collections */}
-            <div className="bg-white text-center rounded-lg shadow-lg p-6">
+            <div className="bg-white text-center rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 hover:shadow-2xl">
               <h3 className="text-lg font-semibold text-gray-600 mb-2">Total Collections</h3>
               <p className="text-3xl font-bold text-green-600">{totalCollections}</p>
               <p className="text-sm text-gray-500 mt-1">Last 24 hours</p>
             </div>
 
             {/* Average Fill Rate */}
-            <div className="bg-white text-center rounded-lg shadow-lg p-6">
+            <div className="bg-white text-center rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 hover:shadow-2xl">
               <h3 className="text-lg font-semibold text-gray-600 mb-2">Average Fill Rate</h3>
               <p className="text-3xl font-bold text-blue-600">{averageFillRate}%</p>
               <p className="text-sm text-gray-500 mt-1">Across all bins</p>
             </div>
 
             {/* Route Efficiency */}
-            <div className="bg-white text-center rounded-lg shadow-lg p-6">
+            <div className="bg-white text-center rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 hover:shadow-2xl">
               <h3 className="text-lg font-semibold text-gray-600 mb-2">Route Efficiency</h3>
               <p className="text-3xl font-bold text-purple-600">{routeEfficiency}%</p>
               <p className="text-sm text-gray-500 mt-1">Active routes</p>
             </div>
 
             {/* Bins Needing Service */}
-            <div className="bg-white text-center rounded-lg shadow-lg p-6">
+            <div className="bg-white text-center rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 hover:shadow-2xl">
               <h3 className="text-lg font-semibold text-gray-600 mb-2">Bins Needing Service</h3>
               <p className="text-3xl font-bold text-red-600">{binsNeedingService}</p>
               <p className="text-sm text-gray-500 mt-1">Critical status</p>
