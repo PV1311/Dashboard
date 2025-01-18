@@ -97,7 +97,7 @@ function App() {
             <span>Dashboard</span>
           </button>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/bins")}
             className="flex items-center gap-2 w-full p-2 rounded-lg hover:bg-gray-100"
           >
             <BarChart className="w-5 h-5 text-green-600" />
