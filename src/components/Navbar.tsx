@@ -1,4 +1,5 @@
-import { Menu, Recycle } from 'lucide-react';
+import React from 'react';
+import { Recycle, Menu } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 interface NavbarProps {

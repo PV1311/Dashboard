@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from 'react';
+import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X, Building2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
-import { useState } from 'react';
-import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
 import { getCityBins } from '../services/mockData';
 import LocationSelector from './LocationSelector';
 import Navbar from './Navbar';
