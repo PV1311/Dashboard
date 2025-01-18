@@ -4,7 +4,7 @@ import {
   LayoutDashboard,
   Route,
   TrendingUp,
-  X
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -154,32 +154,48 @@ function App() {
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-8 pb-8">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-2">Total Bins</h3>
-            <p className="text-3xl font-bold text-green-600">{totalBins}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Across {bins.length ? bins[0].location.area : "5"} areas
+            <h3 className="text-lg text-center font-semibold mb-2">
+              Total Bins
+            </h3>
+            <p className="text-3xl text-center font-bold text-green-600">
+              {totalBins}
+            </p>
+            <p className="text-sm text-center text-gray-500 mt-2">
+              Across {bins.length ? bins[0].location.area : "all"} areas
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-2">Critical Bins</h3>
-            <p className="text-3xl font-bold text-red-600">{criticalBins}</p>
-            <p className="text-sm text-gray-500 mt-2">
+            <h3 className="text-lg text-center font-semibold mb-2">
+              Critical Bins
+            </h3>
+            <p className="text-3xl text-center font-bold text-red-600">
+              {criticalBins}
+            </p>
+            <p className="text-sm text-center text-gray-500 mt-2">
               Requiring immediate attention
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-2">Active Routes</h3>
-            <p className="text-3xl font-bold text-blue-600">{activeRoutes}</p>
-            <p className="text-sm text-gray-500 mt-2">
+            <h3 className="text-lg text-center font-semibold mb-2">
+              Active Routes
+            </h3>
+            <p className="text-3xl text-center font-bold text-blue-600">
+              {activeRoutes}
+            </p>
+            <p className="text-sm text-center text-gray-500 mt-2">
               Currently being serviced
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-2">Bins Collected Today</h3>
-            <p className="text-3xl font-bold text-purple-600">
+            <h3 className="text-lg text-center font-semibold mb-2">
+              Bins Collected Today
+            </h3>
+            <p className="text-3xl text-center font-bold text-purple-600">
               {binsCollectedToday}
             </p>
-            <p className="text-sm text-gray-500 mt-2">Updated hourly</p>
+            <p className="text-sm text-center text-gray-500 mt-2">
+              Updated hourly
+            </p>
           </div>
         </div>
       </main>
