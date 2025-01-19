@@ -18,7 +18,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       case "/analytics":
         return "Analytics Dashboard";
       default:
-        return "Municipal Smart Bin Dashboard"; // Default title for other routes
+        return "Neev"; // Default title for other routes
     }
   };
 

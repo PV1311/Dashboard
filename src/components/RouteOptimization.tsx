@@ -1,9 +1,9 @@
-import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
+import { useState } from 'react';
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from 'react-leaflet';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getCityBins } from '../services/mockData';
 import LocationSelector from './LocationSelector';
 import Navbar from './Navbar';
@@ -201,7 +201,7 @@ export default function RouteOptimization() {
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center gap-2">
             <Box className="w-6 h-6 text-green-600" />
-            <span className="text-lg font-semibold">EcoSmart Bins</span>
+            <span className="text-lg font-semibold">Neev</span>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(false)}

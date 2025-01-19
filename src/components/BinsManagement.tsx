@@ -1,6 +1,6 @@
 import { BarChart as BarChartIcon, Box, LayoutDashboard, Route, TrendingUp, X } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { getCityBins } from '../services/mockData';
 import { SmartBin } from '../types/bin';
@@ -81,7 +81,7 @@ function BinsManagement() {
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center gap-2">
             <Box className="w-6 h-6 text-green-600" />
-            <span className="text-lg font-semibold">EcoSmart Bins</span>
+            <span className="text-lg font-semibold">Neev</span>
           </div>
           <button 
             onClick={() => setIsSidebarOpen(false)}
