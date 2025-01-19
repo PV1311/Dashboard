@@ -85,7 +85,7 @@ function App() {
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center gap-2">
             <Box className="w-6 h-6 text-green-600" />
-            <span className="text-lg font-semibold">Neev</span>
+            <span className="text-lg font-semibold">NEEV</span>
           </div>
           <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden">
             <X className="w-6 h-6 text-gray-500" />

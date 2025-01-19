@@ -18,7 +18,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
       case "/analytics":
         return "Analytics Dashboard";
       default:
-        return "Neev"; // Default title for other routes
+        return "NEEV"; // Default title for other routes
     }
   };
 
